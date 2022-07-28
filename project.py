@@ -23,15 +23,15 @@ class FileManager():
     
 class board:
     def __init__(self,row,col) -> None:
-        self.col=col
-        self.row=row
+        self.col = col
+        self.row = row
         print(self.row)
     def create_board(self):
         self.board = np.zeros((self.row,self.col ), dtype=np.uint8)
         return self.board
     
     def read(self):
-        self.count=open('result','r') 
+        self.count = open('result','r') 
         content = self.count.readlines()
         for line in content:
             for i in line:
@@ -145,10 +145,10 @@ class board:
             except Exception:
                 print('Invalid input') 
             else:
-                if board[row][col]==1 or board[row][col]==2:
-                    while board[row][col]!=0:
+                if board[row][col] == 1 or board[row][col] == 2:
+                    while board[row][col] != 0:
                         try:
-                            row=row-1
+                            row = row-1
                             if row<0:
                                 raise Exception
                         except Exception:
@@ -159,9 +159,9 @@ class board:
                   
                         
                 else:
-                    last_row=player_row-1
-                    while board[last_row][col]!=0:
-                        last_row=last_row-1
+                    last_row = player_row-1
+                    while board[last_row][col] != 0:
+                        last_row = last_row-1
                     self.move(board,last_row,col,1,'player')
                     return board
                
@@ -179,21 +179,21 @@ class board:
         # if ones>=3:
         #     flag=self.bot_move(board)
         # if flag==0 or flag==-1:
-        size= len(board)-1
-        bot_row=b_row-1
+        size = len(board)-1
+        bot_row = b_row-1
         bot_col=random.randint(0, size)
         print(bot_col)
         print(bot_row)
         if board[bot_row][bot_col] !=0 and bot_row-1<0:
-            bot_col=choice([i for i in range(0,size) if i not in [bot_col]])
-        if board[bot_row][bot_col]==2 or board[bot_row][bot_col]==1:
-            while board[bot_row][bot_col]!=0:
-                bot_row=bot_row-1
+            bot_col = choice([i for i in range(0,size) if i not in [bot_col]])
+        if board[bot_row][bot_col] == 2 or board[bot_row][bot_col] == 1:
+            while board[bot_row][bot_col] != 0:
+                bot_row = bot_row-1
             self.move(board,bot_row,bot_col,2,'bot')
             return board
           
         else:
-            bot_last_row=5
+            bot_last_row = 5
             while board[bot_last_row][bot_col] != 0:
                 bot_last_row = bot_last_row-1 
             self.move(board,bot_last_row,bot_col,2,'bot')
@@ -201,24 +201,25 @@ class board:
                             
                                       
                         
-if __name__== '__main__':
-    flag=True
-    object=board(row=6,col=7)
-    player_count=int(object.read())
-    a=object.create_board()
+if __name__ == '__main__':
+    flag = True
+    object = board(row=6,col=7)
+    player_count = int(object.read())
+    a = object.create_board()
     print(a)
-    _board=object.player(a,6)
+    _board = object.player(a,6)
+    
     while flag:
-        _board=object.bot_func(_board,6)
-        _bot=object.win('bot', _board)
+        _board = object.bot_func(_board,6)
+        _bot = object.win('bot', _board)
         if _bot:
             print('BOT wins')
             break
-        _board=object.player(_board,6)
-        _player=object.win('player',_board)
+        _board = object.player(_board,6)
+        _player = object.win('player',_board)
         if _player:
             with FileManager('result', 'w') as f:
-                player_count=player_count+1
+                player_count = player_count+1
                 f.write(f"Player wins: {player_count}")
             print('Player wins')
             break
